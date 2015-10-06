@@ -64,7 +64,8 @@ public class CrimeFragment extends Fragment {
 
         mDateButton = (Button)v.findViewById(R.id.crime_date_button);
         //sets button text to the date
-        mDateButton.setText(mCrime.getDate().toString());
+        //formatted for chapter 8 challenge
+        mDateButton.setText(android.text.format.DateFormat.format("MMM-dd-yyyy", mCrime.getDate()));
         //button disabled for now
         mDateButton.setEnabled(false);
 
