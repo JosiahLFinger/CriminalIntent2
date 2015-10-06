@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CriminalIntent2</string>
+
+
+    <string name="crime_title_hint">Enter a title for for the crime</string>
+
+
+    <string name="action_settings">Settings</string>
+</resources>
