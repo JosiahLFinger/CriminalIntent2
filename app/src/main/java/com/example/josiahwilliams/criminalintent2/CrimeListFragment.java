@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.List;
@@ -44,12 +45,28 @@ public class CrimeListFragment extends Fragment {
 
     private class CrimeHolder extends RecyclerView.ViewHolder {
 
-        public TextView mTitleTextView;
+        private Crime mCrime;
+
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+        private CheckBox mSolvedCheckBox;
 
         public CrimeHolder(View itemView) {
             super(itemView);
 
-            mTitleTextView = (TextView) itemView;
+            //sets up the new view by finding the views and checkbox by their ids
+            mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_crime_title_text_view);
+            mDateTextView = (TextView) itemView.findViewById(R.id.list_item_crime_date_text_view);
+            mSolvedCheckBox = (CheckBox) itemView.findViewById(R.id.list_item_crime_solved_check_box);
+        }
+
+        //method gathers information from the crime and
+        //sets the text and checks or unchecks the box.
+        public void bindCrime(Crime crime) {
+            mCrime = crime;
+            mTitleTextView.setText(mCrime.getTitle());
+            mDateTextView.setText(mCrime.getDate().toString());
+            mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
     }
 
@@ -65,8 +82,8 @@ public class CrimeListFragment extends Fragment {
         //called when new view is needed
         public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            //create view using layout from library
-            View view = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            //create view using the layout I just created
+            View view = layoutInflater.inflate(R.layout.list_crime_item, parent, false);
             //wrap in crimeholder
             return new CrimeHolder(view);
         }
@@ -75,7 +92,8 @@ public class CrimeListFragment extends Fragment {
         //binds view to model object
         public void onBindViewHolder(CrimeHolder holder, int position) {
             Crime crime = mCrimes.get(position);
-            holder.mTitleTextView.setText(crime.getTitle());
+            //sends crime to method to set text and check or uncheck box
+            holder.bindCrime(crime);
         }
 
         @Override
