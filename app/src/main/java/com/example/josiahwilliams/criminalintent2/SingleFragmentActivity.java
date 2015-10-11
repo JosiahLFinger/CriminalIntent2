@@ -26,7 +26,7 @@ public abstract class SingleFragmentActivity extends FragmentActivity{
 
         //if there is no fragment, creates one and a new fragment transaction to add it to the list
         if (fragment == null) {
-            //TODO why dont you work???            fragment = new createFragment();
+            fragment = createFragment();
             //create a new fragment transaction
             fm.beginTransaction()
                     //include one add operation
