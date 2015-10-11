@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class CrimeActivity extends SingleFragmentActivity {
 
-    public static final String EXTRA_CRIME_ID = "com.example.josiahwilliams.cfriminalintent2.crime_id";
+    private static final String EXTRA_CRIME_ID = "com.example.josiahwilliams.criminalintent2.crime_id";
 
     //method builds and adds intent that stores the crime id for the view to get correct information
     public static Intent newIntent(Context packageContext, UUID crimeID) {
@@ -23,7 +23,8 @@ public class CrimeActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return new CrimeFragment();
+        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        return CrimeFragment.newInstance(crimeId);
     }
 
 }

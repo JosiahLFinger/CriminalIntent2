@@ -20,18 +20,32 @@ import java.util.UUID;
  */
 public class CrimeFragment extends Fragment {
 
+    private static final String ARG_CRIME_ID = "crime_id";
+
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
+
+    //new method called whenever CrimeFragment needs to create a crimefragment.
+    public static CrimeFragment newInstance(UUID crimeId) {
+        Bundle args = new Bundle();
+        //save crimeId to args
+        args.putSerializable(ARG_CRIME_ID, crimeId);
+
+        //create new fragment and give it the id from above argument
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     //fragment onCreate is public so it can be called by whatever is hosting the fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        UUID crimeId = (UUID) getActivity().getIntent().getSerializableExtra(
-                CrimeActivity.EXTRA_CRIME_ID);
+        UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
     }
 
